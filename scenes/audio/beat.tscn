@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0guxneekb48x"]
+
+[ext_resource type="AudioStream" uid="uid://7xv474sgna4e" path="res://assets/audio/kick.wav" id="1_i8lir"]
+[ext_resource type="Script" uid="uid://bs2f4hkuv22by" path="res://scenes/audio/beat.gd" id="1_lpxf4"]
+
+[node name="Beat" type="Node2D"]
+script = ExtResource("1_lpxf4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_i8lir")
+
+[node name="Timer" type="Timer" parent="."]
