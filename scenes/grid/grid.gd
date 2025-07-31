@@ -11,15 +11,8 @@ var cell_height: float = float(grid_height) / ROWS
 
 var cells: Array[Cell] = []
 
-@onready var beat: Beat = $Beat
-
 func _ready():
     position = Vector2(grid_width, grid_height) * -0.5
-
-    beat.max_beats = COLUMNS
-    beat.beat_step = cell_width
-    beat.position = Vector2(0, -cell_height * 0.5)
-
     for column in COLUMNS:
         for row in ROWS:
             var cell = Cell.create_cell(cell_width, cell_height, row, column)

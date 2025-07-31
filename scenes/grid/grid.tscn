@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvb73msgs4kt1"]
+[gd_scene load_steps=2 format=3 uid="uid://dvb73msgs4kt1"]
 
 [ext_resource type="Script" uid="uid://bggkygsf3jioy" path="res://scenes/grid/grid.gd" id="1_t5fjg"]
-[ext_resource type="PackedScene" uid="uid://d0guxneekb48x" path="res://scenes/audio/beat.tscn" id="2_yuyu4"]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_t5fjg")
-
-[node name="Beat" parent="." instance=ExtResource("2_yuyu4")]
