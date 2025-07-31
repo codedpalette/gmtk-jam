@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cs3iel1lpvj0r"]
+[gd_scene load_steps=5 format=3 uid="uid://cs3iel1lpvj0r"]
 
 [ext_resource type="Script" uid="uid://btqg1i8ss4eic" path="res://scenes/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://dvb73msgs4kt1" path="res://scenes/grid/grid.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://d0guxneekb48x" path="res://scenes/audio/beat.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://btynom4wkao1d" path="res://scenes/player/player.tscn" id="4_jyhfs"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_o5qli")
@@ -15,6 +16,8 @@ script = ExtResource("1_o5qli")
 remote_path = NodePath("../../Beat")
 
 [node name="Beat" parent="World" instance=ExtResource("3_sugp2")]
+
+[node name="Player" parent="World" instance=ExtResource("4_jyhfs")]
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3

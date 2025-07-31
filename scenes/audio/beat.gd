@@ -11,10 +11,7 @@ var pitch_shift_effect: AudioEffectPitchShift = AudioServer.get_bus_effect(1, 1)
 var grid: Grid
 var current_beat: int = -1
 
-func _draw():
-    var circle_position := Vector2((current_beat + 0.5) * grid.cell_width, -grid.cell_height * 0.5)
-    var circle_radius := 5
-    draw_circle(circle_position, circle_radius, Color.RED)
+signal beat_looped
 
 func _ready():
     timer.wait_time = BEAT_DURATION
@@ -24,6 +21,8 @@ func _ready():
 func _on_timer_timeout():
     current_beat += 1
     current_beat %= grid.COLUMNS
+    if current_beat == 0:
+        beat_looped.emit()
     queue_redraw()
     if current_beat % 2 == 0:
         kick_player.play()
