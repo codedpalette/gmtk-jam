@@ -12,35 +12,39 @@ const cell_scene: PackedScene = preload("res://scenes/grid/cell.tscn")
 var rect: Rect2
 var grid_index: Vector2i
 
-var _hovered: bool = false:
+var hovered: bool = false:
 	set(value):
-		_hovered = value
-		queue_redraw()
-var _clicked: bool = false:
+		if hovered != value:
+			hovered = value
+			queue_redraw()
+var active: bool = false:
 	set(value):
-		_clicked = value
-		queue_redraw()
+		if active != value:
+			active = value
+			queue_redraw()
+
+signal clicked(column: int, row: int)
 
 func _draw():
-	if _hovered or _clicked:
-		var color := clicked_color if _clicked else hover_color
+	if hovered or active:
+		var color := clicked_color if active else hover_color
 		draw_rect(rect, color, true)
 	draw_rect(rect, line_color, false, 1.0)
 
 func _ready():
 	collision_shape.shape.size = rect.size
 	area.position = rect.size * 0.5
-	area.mouse_entered.connect(func(): _hovered = true)
-	area.mouse_exited.connect(func(): _hovered = false)
+	area.mouse_entered.connect(func(): hovered = true)
+	area.mouse_exited.connect(func(): hovered = false)
 	area.input_event.connect(func(_viewport, event, _shape_idx): _on_input_event(event))
 
 func _on_input_event(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		_clicked = !_clicked
+		clicked.emit(grid_index.x, grid_index.y)
 
 static func create_cell(width: float, height: float, row: int, column: int) -> Cell:
 	var cell: Cell = cell_scene.instantiate()
 	cell.position = Vector2(column * width, row * height)
 	cell.rect = Rect2(Vector2.ZERO, Vector2(width, height))
-	cell.grid_index = Vector2i(row, column)
+	cell.grid_index = Vector2i(column, row)
 	return cell
