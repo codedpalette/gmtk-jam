@@ -11,8 +11,8 @@ script = ExtResource("1_xb4v1")
 [node name="Grid" parent="." instance=ExtResource("1_b2cq8")]
 position = Vector2(860, 360)
 
-[node name="Player" parent="." instance=ExtResource("3_urvlt")]
-position = Vector2(376.25, 514.286)
-velocity = Vector2(215, 0)
+[node name="Player" parent="Grid" instance=ExtResource("3_urvlt")]
+position = Vector2(-483.75, 154.286)
+velocity = Vector2(430, 0)
 
 [node name="AudioPlayer" parent="." instance=ExtResource("4_xb4v1")]
