@@ -1,6 +1,6 @@
-class_name Beat extends Node2D
+class_name Beat extends Node
 
-const BPM = 240
+const BPM = 120
 const BEAT_DURATION = 60.0 / BPM
 
 @onready var kick_player: AudioStreamPlayer = $KickPlayer
@@ -8,7 +8,7 @@ const BEAT_DURATION = 60.0 / BPM
 @onready var timer: Timer = $Timer
 var pitch_shift_effect: AudioEffectPitchShift = AudioServer.get_bus_effect(1, 1)
 
-var grid: Grid
+var grid: Grid # TODO: Dependency on grid should be optional
 var current_beat: int = -1
 
 signal beat_looped
@@ -23,7 +23,6 @@ func _on_timer_timeout():
     current_beat %= grid.COLUMNS
     if current_beat == 0:
         beat_looped.emit()
-    queue_redraw()
     if current_beat % 2 == 0:
         kick_player.play()
     _play_beat_note()

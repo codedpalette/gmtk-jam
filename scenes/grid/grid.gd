@@ -1,3 +1,4 @@
+@tool
 class_name Grid extends Node2D
 
 const COLUMNS = 8
@@ -12,10 +13,10 @@ var cell_height: float = float(grid_height) / ROWS
 var cells: Array[Cell] = []
 
 func _ready():
-    position = Vector2(grid_width, grid_height) * -0.5
     for column in COLUMNS:
         for row in ROWS:
             var cell = Cell.create_cell(cell_width, cell_height, row, column)
+            cell.position -= Vector2(grid_width, grid_height) * 0.5
             cell.clicked.connect(_on_cell_clicked)
             add_child(cell)
             cells.append(cell)

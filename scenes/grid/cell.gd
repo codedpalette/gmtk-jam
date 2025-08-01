@@ -1,6 +1,7 @@
+@tool
 class_name Cell extends Node2D
 
-@export var line_color: Color = Color(0xfcfcfcff)
+@export var line_color: Color
 @export var hover_color: Color
 @export var clicked_color: Color
 const cell_scene: PackedScene = preload("res://scenes/grid/cell.tscn")
@@ -28,7 +29,7 @@ func _draw():
     if hovered or active:
         var color := clicked_color if active else hover_color
         draw_rect(rect, color, true)
-    draw_rect(rect, line_color, false, 1.0)
+    draw_rect(rect, line_color, false, 1.0, true)
 
 func _ready():
     collision_shape.shape.size = rect.size
