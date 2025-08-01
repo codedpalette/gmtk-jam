@@ -22,6 +22,9 @@ var active: bool = false:
         if active != value:
             active = value
             queue_redraw()
+var center: Vector2:
+    get:
+        return position + rect.size * 0.5
 
 signal clicked(column: int, row: int)
 

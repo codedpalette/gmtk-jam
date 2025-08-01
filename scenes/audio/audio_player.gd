@@ -4,7 +4,7 @@ class_name AudioPlayer extends Node
 @onready var lead_player: AudioStreamPlayer = $LeadPlayer
 var pitch_shift_effect: AudioEffectPitchShift = AudioServer.get_bus_effect(1, 1)
 
-var grid: Grid # TODO: Dependency on grid should be optional
+var grid: Grid # TODO: Instead pass notes from caller
 
 func _ready():
     Beat.beat_triggered.connect(_on_beat_triggered)
