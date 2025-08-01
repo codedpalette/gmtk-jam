@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c38d4pu2lfvae"]
+
+[ext_resource type="Script" uid="uid://bsbru7bg7wyht" path="res://scenes/autoloads/beat.gd" id="1_pe2pu"]
+
+[node name="Beat" type="Timer"]
+script = ExtResource("1_pe2pu")

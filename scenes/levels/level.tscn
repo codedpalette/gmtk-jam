@@ -2,13 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://dvb73msgs4kt1" path="res://scenes/grid/grid.tscn" id="1_b2cq8"]
 [ext_resource type="Script" uid="uid://p01bdvdwcj2b" path="res://scenes/levels/level.gd" id="1_xb4v1"]
-[ext_resource type="PackedScene" uid="uid://d0guxneekb48x" path="res://scenes/audio/beat.tscn" id="2_xb4v1"]
 [ext_resource type="PackedScene" uid="uid://btynom4wkao1d" path="res://scenes/player/player.tscn" id="3_urvlt"]
+[ext_resource type="PackedScene" uid="uid://b4ait8w6u40fv" path="res://scenes/audio/audio_player.tscn" id="4_xb4v1"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_xb4v1")
-
-[node name="Beat" parent="." instance=ExtResource("2_xb4v1")]
 
 [node name="Grid" parent="." instance=ExtResource("1_b2cq8")]
 position = Vector2(860, 360)
@@ -16,3 +14,5 @@ position = Vector2(860, 360)
 [node name="Player" parent="." instance=ExtResource("3_urvlt")]
 position = Vector2(376.25, 514.286)
 velocity = Vector2(215, 0)
+
+[node name="AudioPlayer" parent="." instance=ExtResource("4_xb4v1")]
