@@ -10,6 +10,10 @@ var inactive_player: Player
 var exit_scene: PackedScene = preload("res://scenes/levels/exit_area.tscn")
 var exit_area: ExitArea
 
+var _viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
+var _viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
+var viewport_size := Vector2i(_viewport_width, _viewport_height)
+
 signal level_completed()
 
 @export_range(0, Grid.ROWS - 1) var start_row := 0:
@@ -30,11 +34,10 @@ func _draw() -> void:
 
 func _ready() -> void:
     _init_player_pool()
-    grid.position = Global.viewport_size * 0.5
+    grid.position = viewport_size * 0.5
     add_child(grid)
     _init_players()
     _init_exit_area()
-    #AudioPlayer.current_grid = grid # TODO: Play only if player is passing
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
 
@@ -63,7 +66,7 @@ func _init_exit_area() -> void:
     exit_area.player_entered.connect(_on_player_entered)
 
 func _on_player_entered() -> void:
-    # TODO: Scene transition
+    # TODO: Scene transition    
     grid.clear_cells()
     remove_child(grid)
     for player in player_pool:
@@ -83,6 +86,9 @@ func _on_beat_triggered(beat_index: int) -> void:
         inactive_player.position = _get_starting_position(start_row)
     if active_player != null && active_player.visible:
         active_player.velocity = _calculate_player_velocity(active_player, beat_index)
+        AudioPlayer.play_beat_note(grid, beat_index)
+    else:
+        AudioPlayer.stop_beat_note()
     if inactive_player != null && inactive_player.visible:
         var inactive_index: int = beat_index - grid.COLUMNS if beat_index > 4 else grid.COLUMNS
         inactive_player.velocity = _calculate_player_velocity(inactive_player, inactive_index)

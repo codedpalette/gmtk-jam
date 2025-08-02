@@ -49,8 +49,10 @@ func advance_level() -> void:
     if current_level == 0:
         change_gui_scene("")
     if current_level < levels_paths.size():
-        var level_scene: Level = change_world_scene(levels_paths[current_level])
-        level_scene.level_completed.connect(advance_level)
+        var level_scene := change_world_scene(levels_paths[current_level])
+        if level_scene.has_signal("level_completed"):
+            var level_completed: Signal = level_scene["level_completed"]
+            level_completed.connect(advance_level)
     else:
         Beat.stop()
         change_world_scene("")
