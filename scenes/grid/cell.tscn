@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://wundd1piastm" path="res://scenes/grid/cell.gd" id="1_xhk21"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhk21"]
-size = Vector2(107.5, 51.4286)
+size = Vector2(0, 0)
 
 [node name="Cell" type="Node2D"]
 script = ExtResource("1_xhk21")

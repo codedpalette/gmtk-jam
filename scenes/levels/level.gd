@@ -3,7 +3,7 @@ class_name Level extends Node2D
 
 @onready var grid: Grid = $Grid
 var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
-var player_pool: Array[Player] = []
+var player_pool: Array[Player] = [] # TODO: Initialize once for all levels
 var active_player: Player
 var inactive_player: Player
 
@@ -30,8 +30,6 @@ func _ready() -> void:
     _init_player_pool()
     _init_exit_area()
     AudioPlayer.current_grid = grid # TODO: Play only if player is passing
-
-    # TODO: This should happen outside of level
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
 
