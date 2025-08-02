@@ -4,7 +4,7 @@ class_name ExitArea extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var rect_shape: RectangleShape2D = collision_shape.shape
 
-signal player_entered()
+signal player_entered(player: Player)
 
 var size: Vector2:
     set(value):
@@ -20,4 +20,4 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
     if body is Player:
-        player_entered.emit()
+        player_entered.emit(body as Player)

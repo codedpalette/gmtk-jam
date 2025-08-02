@@ -62,18 +62,13 @@ func _init_exit_area() -> void:
         exit_area = exit_scene.instantiate()
     exit_area.position = _get_exit_position(exit_row)
     grid.add_child(exit_area)
-    exit_area.size = Vector2(grid.cell_width, grid.cell_height)
+    exit_area.size = Vector2(grid.cell_width, grid.cell_height) * 1.1
     exit_area.player_entered.connect(_on_player_entered)
 
-func _on_player_entered() -> void:
-    # TODO: Scene transition    
-    grid.clear_cells()
-    remove_child(grid)
-    for player in player_pool:
-        remove_child(player)
-    exit_area.player_entered.disconnect(_on_player_entered)
-    remove_child(exit_area)
-    level_completed.emit()
+func _on_player_entered(player: Player) -> void:
+    if player.visible:
+        print("level completed")
+        level_completed.emit()
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:

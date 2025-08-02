@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctm1u6ilvwypo"]
+[gd_scene load_steps=4 format=3 uid="uid://ctm1u6ilvwypo"]
 
 [ext_resource type="Script" uid="uid://llvwncp55a5v" path="res://scenes/levels/level_2.gd" id="1_j2425"]
+[ext_resource type="PackedScene" uid="uid://cp6p0j70wh1xn" path="res://scenes/hazards/death_zone.tscn" id="2_g2h2n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2h2n"]
+resource_local_to_scene = true
+size = Vector2(424, 208)
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_j2425")
-start_row = 4
+start_row = 3
+exit_row = 3
 metadata/_custom_type_script = "uid://p01bdvdwcj2b"
+
+[node name="DeathZone" parent="." instance=ExtResource("2_g2h2n")]
+position = Vector2(860, 386)
+
+[node name="CollisionShape2D" parent="DeathZone" index="0"]
+shape = SubResource("RectangleShape2D_g2h2n")
+
+[editable path="DeathZone"]
