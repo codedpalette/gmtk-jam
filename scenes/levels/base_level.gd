@@ -1,14 +1,16 @@
 @tool
 class_name Level extends Node2D
 
-@onready var grid: Grid = $Grid
+var grid: Grid = preload("res://scenes/grid/grid.tscn").instantiate()
 var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
-var player_pool: Array[Player] = [] # TODO: Initialize once for all levels
+var player_pool: Array[Player] = []
 var active_player: Player
 var inactive_player: Player
 
 var exit_scene: PackedScene = preload("res://scenes/levels/exit_area.tscn")
 var exit_area: ExitArea
+
+signal level_completed()
 
 @export_range(0, Grid.ROWS - 1) var start_row := 0:
     set(value):
@@ -28,32 +30,47 @@ func _draw() -> void:
 
 func _ready() -> void:
     _init_player_pool()
+    grid.position = Global.viewport_size * 0.5
+    add_child(grid)
+    _init_players()
     _init_exit_area()
-    AudioPlayer.current_grid = grid # TODO: Play only if player is passing
+    #AudioPlayer.current_grid = grid # TODO: Play only if player is passing
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
 
 func _init_player_pool() -> void:
-    for i in range(2):
-        var player_instance: Player = player_scene.instantiate()
-        player_instance.visible = false
-        player_instance.position = _get_starting_position(start_row)
-        grid.add_child(player_instance)
-        player_pool.append(player_instance)
+    if player_pool.size() == 0:
+        for i in range(2):
+            var player_instance: Player = player_scene.instantiate()
+            player_pool.append(player_instance)
+
+func _init_players() -> void:
+    for player in player_pool:
+        player.visible = false
+        player.position = _get_starting_position(start_row)
+        grid.add_child(player)
     active_player = player_pool[0]
     active_player.active = true
     inactive_player = player_pool[1]
     inactive_player.active = false
 
 func _init_exit_area() -> void:
-    exit_area = exit_scene.instantiate()
+    if exit_area == null:
+        exit_area = exit_scene.instantiate()
     exit_area.position = _get_exit_position(exit_row)
     grid.add_child(exit_area)
     exit_area.size = Vector2(grid.cell_width, grid.cell_height)
     exit_area.player_entered.connect(_on_player_entered)
 
 func _on_player_entered() -> void:
-    Global.advance_level() # TODO: Emit level completed signal
+    # TODO: Scene transition
+    grid.clear_cells()
+    remove_child(grid)
+    for player in player_pool:
+        remove_child(player)
+    exit_area.player_entered.disconnect(_on_player_entered)
+    remove_child(exit_area)
+    level_completed.emit()
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:
@@ -67,13 +84,13 @@ func _on_beat_triggered(beat_index: int) -> void:
     if active_player != null && active_player.visible:
         active_player.velocity = _calculate_player_velocity(active_player, beat_index)
     if inactive_player != null && inactive_player.visible:
-        var inactive_index: int = max(0, beat_index - grid.COLUMNS) if beat_index > 4 else grid.COLUMNS
+        var inactive_index: int = beat_index - grid.COLUMNS if beat_index > 4 else grid.COLUMNS
         inactive_player.velocity = _calculate_player_velocity(inactive_player, inactive_index)
 
 func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
     var vector_right := Vector2(grid.cell_width / Beat.EIGHTH_NOTE_DURATION, 0)
     var nearest_cell: Cell = null
-    for i in range(beat_index, grid.COLUMNS):
+    for i in range(max(0, beat_index), grid.COLUMNS):
         var column := grid.get_column(i)
         var note_index := column.find_custom(func(cell: Cell) -> bool: return cell.active)
         if note_index >= 0:

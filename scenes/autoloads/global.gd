@@ -1,20 +1,7 @@
+@tool
 extends Node
 
 var main_controller: Main
-
-var current_level := -1
-var levels_paths: Array[String] = [
-    "res://scenes/levels/level.tscn",
-]
-var finish_screen_path := "res://scenes/gui/finish_screen.tscn"
-
-func advance_level() -> void:
-    current_level += 1
-    if current_level == 0:
-        main_controller.change_gui_scene("")
-    if current_level < levels_paths.size():
-        main_controller.change_world_scene(levels_paths[current_level])
-    else:
-        Beat.stop()
-        main_controller.change_world_scene("")
-        main_controller.change_gui_scene(finish_screen_path)
+var _viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
+var _viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
+var viewport_size := Vector2i(_viewport_width, _viewport_height)

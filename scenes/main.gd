@@ -6,6 +6,13 @@ class_name Main extends Node
 var current_world_scene: Node2D
 var current_gui_scene: Control
 
+var current_level := -1
+var levels_paths: Array[String] = [
+    "res://scenes/levels/level_1.tscn",
+    "res://scenes/levels/level_2.tscn",
+]
+var finish_screen_path := "res://scenes/gui/finish_screen.tscn"
+
 func _ready() -> void:
     Global.main_controller = self
     current_gui_scene = $GUI/StartScreen
@@ -23,7 +30,7 @@ func change_gui_scene(new_scene: String, delete := true, keep_running := false) 
         gui.add_child(new_gui_scene)
         current_gui_scene = new_gui_scene
 
-func change_world_scene(new_scene: String, delete := true, keep_running := false) -> void:
+func change_world_scene(new_scene: String, delete := true, keep_running := false) -> Node2D:
     if current_world_scene != null:
         if delete:
             current_world_scene.queue_free()
@@ -35,3 +42,16 @@ func change_world_scene(new_scene: String, delete := true, keep_running := false
         var new_world_scene := (load(new_scene) as PackedScene).instantiate() as Node2D
         world.add_child(new_world_scene)
         current_world_scene = new_world_scene
+    return current_world_scene
+
+func advance_level() -> void:
+    current_level += 1
+    if current_level == 0:
+        change_gui_scene("")
+    if current_level < levels_paths.size():
+        var level_scene: Level = change_world_scene(levels_paths[current_level])
+        level_scene.level_completed.connect(advance_level)
+    else:
+        Beat.stop()
+        change_world_scene("")
+        change_gui_scene(finish_screen_path)

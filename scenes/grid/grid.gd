@@ -36,3 +36,7 @@ func get_column(column: int) -> Array[Cell]:
 
 func get_row(row: int) -> Array[Cell]:
     return cells.slice(row, cells.size() - (ROWS - row - 1), ROWS)
+
+func clear_cells() -> void:
+    for cell in cells:
+        cell.active = false

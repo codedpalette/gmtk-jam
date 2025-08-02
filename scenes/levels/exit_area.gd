@@ -13,7 +13,7 @@ var size: Vector2:
 
 func _draw() -> void:
     var debug_rect := Rect2(size * -0.5, size)
-    draw_rect(debug_rect, Color.GREEN, false, 1.0)
+    draw_rect(debug_rect, Color.GREEN, false, 1.0, true)
 
 func _ready() -> void:
     connect("body_entered", _on_body_entered)
