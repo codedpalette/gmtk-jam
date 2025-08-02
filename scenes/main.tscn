@@ -9,6 +9,8 @@ script = ExtResource("1_o5qli")
 [node name="World" type="Node2D" parent="."]
 
 [node name="Level" parent="World" instance=ExtResource("2_0wfyh")]
+start_row = null
+exit_row = null
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3

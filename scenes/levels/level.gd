@@ -7,11 +7,41 @@ var player_pool: Array[Player] = []
 var active_player: Player
 var inactive_player: Player
 
+var exit_scene: PackedScene = preload("res://scenes/levels/exit_area.tscn")
+var exit_area: ExitArea
+
+@export_range(0, Grid.ROWS - 1) var start_row := 0:
+    set(value):
+        start_row = value
+        if Engine.is_editor_hint():
+            queue_redraw()
+@export_range(0, Grid.ROWS - 1) var exit_row := 0:
+    set(value):
+        exit_row = value
+        if exit_area != null:
+            exit_area.position = _get_exit_position(exit_row)
+
+func _draw() -> void:
+    if Engine.is_editor_hint():
+        var start_position := grid.to_global(_get_starting_position(start_row))
+        draw_circle(start_position, 10, Color.RED)
+
 func _ready() -> void:
     _init_player_pool()
+    _init_exit_area()
     AudioPlayer.current_grid = grid
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
+
+func _init_exit_area() -> void:
+    exit_area = exit_scene.instantiate()
+    exit_area.position = _get_exit_position(exit_row)
+    grid.add_child(exit_area)
+    exit_area.size = Vector2(grid.cell_width, grid.cell_height)
+    exit_area.player_entered.connect(_on_player_entered)
+
+func _on_player_entered() -> void:
+    print("level completed")
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:
@@ -21,7 +51,7 @@ func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 1:
         inactive_player.visible = false
         inactive_player.velocity = Vector2.ZERO
-        inactive_player.position = _get_starting_position()
+        inactive_player.position = _get_starting_position(start_row)
     if active_player != null:
         active_player.velocity = _calculate_player_velocity(active_player, beat_index)
     if inactive_player != null && inactive_player.visible:
@@ -32,7 +62,7 @@ func _init_player_pool() -> void:
     for i in range(2):
         var player_instance: Player = player_scene.instantiate()
         player_instance.visible = false
-        player_instance.position = _get_starting_position()
+        player_instance.position = _get_starting_position(start_row)
         grid.add_child(player_instance)
         player_pool.append(player_instance)
     active_player = player_pool[0]
@@ -47,8 +77,11 @@ func _swap_players() -> void:
     active_player = inactive_player
     inactive_player = temp
 
-func _get_starting_position() -> Vector2:
-    return grid.get_cell(grid.ROWS - 1, 0).center + Vector2(grid.cell_width * -2, 0)
+func _get_starting_position(row: int) -> Vector2:
+    return grid.get_cell(Grid.ROWS - row - 1, 0).center + Vector2(grid.cell_width * -2, 0)
+
+func _get_exit_position(row: int) -> Vector2:
+    return grid.get_cell(Grid.ROWS - row - 1, Grid.COLUMNS - 1).center + Vector2(grid.cell_width * 2, 0)
 
 func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
     var vector_right := Vector2(grid.cell_width / Beat.EIGHTH_NOTE_DURATION, 0)
