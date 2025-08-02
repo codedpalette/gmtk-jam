@@ -10,7 +10,6 @@ func _ready() -> void:
     Global.main_controller = self
     current_gui_scene = $GUI/StartScreen
 
-# TODO: Maybe refactor these with generics
 func change_gui_scene(new_scene: String, delete := true, keep_running := false) -> void:
     if current_gui_scene != null:
         if delete:

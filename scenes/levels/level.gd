@@ -29,7 +29,8 @@ func _draw() -> void:
 func _ready() -> void:
     _init_player_pool()
     _init_exit_area()
-    AudioPlayer.current_grid = grid
+    AudioPlayer.current_grid = grid # TODO: Play only if player is passing
+
     # TODO: This should happen outside of level
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
@@ -54,7 +55,7 @@ func _init_exit_area() -> void:
     exit_area.player_entered.connect(_on_player_entered)
 
 func _on_player_entered() -> void:
-    print("level completed") # TODO: Emit level completed signal
+    Global.advance_level() # TODO: Emit level completed signal
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:
@@ -65,10 +66,10 @@ func _on_beat_triggered(beat_index: int) -> void:
         inactive_player.visible = false
         inactive_player.velocity = Vector2.ZERO
         inactive_player.position = _get_starting_position(start_row)
-    if active_player != null:
+    if active_player != null && active_player.visible:
         active_player.velocity = _calculate_player_velocity(active_player, beat_index)
     if inactive_player != null && inactive_player.visible:
-        var inactive_index := beat_index - grid.COLUMNS if beat_index > 4 else grid.COLUMNS
+        var inactive_index: int = max(0, beat_index - grid.COLUMNS) if beat_index > 4 else grid.COLUMNS
         inactive_player.velocity = _calculate_player_velocity(inactive_player, inactive_index)
 
 func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
