@@ -8,10 +8,10 @@ var current_beat := -1
 
 signal beat_triggered(beat_index: int)
 
-func _ready():
+func _ready() -> void:
     wait_time = EIGHTH_NOTE_DURATION
     timeout.connect(_on_timeout)
 
-func _on_timeout():
+func _on_timeout() -> void:
     current_beat = (current_beat + 1) % 8
     beat_triggered.emit(current_beat)

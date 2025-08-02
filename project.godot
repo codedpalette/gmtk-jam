@@ -22,6 +22,15 @@ buses/default_bus_layout="uid://dkchfw8ewnnvc"
 [autoload]
 
 Beat="*res://scenes/autoloads/beat.tscn"
+AudioPlayer="*res://scenes/audio/audio_player.tscn"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_property_access=2
+gdscript/warnings/unsafe_method_access=2
+gdscript/warnings/unsafe_cast=2
+gdscript/warnings/unsafe_call_argument=2
 
 [display]
 

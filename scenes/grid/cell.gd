@@ -28,21 +28,23 @@ var center: Vector2:
 
 signal clicked(column: int, row: int)
 
-func _draw():
+func _draw() -> void:
     if hovered or active:
         var color := clicked_color if active else hover_color
         draw_rect(rect, color, true)
     draw_rect(rect, line_color, false, 1.0, true)
 
-func _ready():
-    collision_shape.shape.size = rect.size
+func _ready() -> void:
+    var shape: RectangleShape2D = collision_shape.shape
+    shape.size = rect.size
     area.position = rect.size * 0.5
-    area.mouse_entered.connect(func(): hovered = true)
-    area.mouse_exited.connect(func(): hovered = false)
-    area.input_event.connect(func(_viewport, event, _shape_idx): _on_input_event(event))
+    area.mouse_entered.connect(func() -> void: hovered = true)
+    area.mouse_exited.connect(func() -> void: hovered = false)
+    area.input_event.connect(func(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void: _on_input_event(event))
 
-func _on_input_event(event: InputEvent):
-    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+func _on_input_event(event: InputEvent) -> void:
+    var mouse_event := event as InputEventMouseButton
+    if mouse_event != null and mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
         clicked.emit(grid_index.x, grid_index.y)
 
 static func create_cell(width: float, height: float, row: int, column: int) -> Cell:

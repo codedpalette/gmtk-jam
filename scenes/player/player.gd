@@ -6,13 +6,14 @@ var active: bool = false:
         active = value
         queue_redraw()
 
-func _draw():
-    var circle_radius = collision_shape.shape.radius
+func _draw() -> void:
+    var shape: CircleShape2D = collision_shape.shape
+    var circle_radius := shape.radius
     draw_circle(Vector2.ZERO, circle_radius, Color.BLUE)
     if active:
         draw_circle(Vector2.ZERO, circle_radius, Color.RED, false, 1.0)
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():
         return
     move_and_slide()

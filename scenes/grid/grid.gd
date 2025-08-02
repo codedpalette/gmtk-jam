@@ -12,16 +12,16 @@ var cell_height: float = float(grid_height) / ROWS
 
 var cells: Array[Cell] = []
 
-func _ready():
+func _ready() -> void:
     for column in COLUMNS:
         for row in ROWS:
-            var cell = Cell.create_cell(cell_width, cell_height, row, column)
+            var cell := Cell.create_cell(cell_width, cell_height, row, column)
             cell.position -= Vector2(grid_width, grid_height) * 0.5
             cell.clicked.connect(_on_cell_clicked)
             add_child(cell)
             cells.append(cell)
 
-func _on_cell_clicked(column: int, row: int):
+func _on_cell_clicked(column: int, row: int) -> void:
     for cell in get_column(column):
         if cell.grid_index.y != row:
             cell.active = false
