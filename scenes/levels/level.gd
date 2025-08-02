@@ -30,8 +30,21 @@ func _ready() -> void:
     _init_player_pool()
     _init_exit_area()
     AudioPlayer.current_grid = grid
+    # TODO: This should happen outside of level
     Beat.beat_triggered.connect(_on_beat_triggered)
     Beat.start()
+
+func _init_player_pool() -> void:
+    for i in range(2):
+        var player_instance: Player = player_scene.instantiate()
+        player_instance.visible = false
+        player_instance.position = _get_starting_position(start_row)
+        grid.add_child(player_instance)
+        player_pool.append(player_instance)
+    active_player = player_pool[0]
+    active_player.active = true
+    inactive_player = player_pool[1]
+    inactive_player.active = false
 
 func _init_exit_area() -> void:
     exit_area = exit_scene.instantiate()
@@ -41,7 +54,7 @@ func _init_exit_area() -> void:
     exit_area.player_entered.connect(_on_player_entered)
 
 func _on_player_entered() -> void:
-    print("level completed")
+    print("level completed") # TODO: Emit level completed signal
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:
@@ -57,31 +70,6 @@ func _on_beat_triggered(beat_index: int) -> void:
     if inactive_player != null && inactive_player.visible:
         var inactive_index := beat_index - grid.COLUMNS if beat_index > 4 else grid.COLUMNS
         inactive_player.velocity = _calculate_player_velocity(inactive_player, inactive_index)
-
-func _init_player_pool() -> void:
-    for i in range(2):
-        var player_instance: Player = player_scene.instantiate()
-        player_instance.visible = false
-        player_instance.position = _get_starting_position(start_row)
-        grid.add_child(player_instance)
-        player_pool.append(player_instance)
-    active_player = player_pool[0]
-    active_player.active = true
-    inactive_player = player_pool[1]
-    inactive_player.active = false
-
-func _swap_players() -> void:
-    active_player.active = false
-    inactive_player.active = true
-    var temp := active_player
-    active_player = inactive_player
-    inactive_player = temp
-
-func _get_starting_position(row: int) -> Vector2:
-    return grid.get_cell(Grid.ROWS - row - 1, 0).center + Vector2(grid.cell_width * -2, 0)
-
-func _get_exit_position(row: int) -> Vector2:
-    return grid.get_cell(Grid.ROWS - row - 1, Grid.COLUMNS - 1).center + Vector2(grid.cell_width * 2, 0)
 
 func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
     var vector_right := Vector2(grid.cell_width / Beat.EIGHTH_NOTE_DURATION, 0)
@@ -101,3 +89,16 @@ func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
     var distance := nearest_cell.center - player.position
     var time: float = max(1, nearest_cell.grid_index.x - beat_index) * Beat.EIGHTH_NOTE_DURATION
     return distance / time
+
+func _get_starting_position(row: int) -> Vector2:
+    return grid.get_cell(Grid.ROWS - row - 1, 0).center + Vector2(grid.cell_width * -2, 0)
+
+func _get_exit_position(row: int) -> Vector2:
+    return grid.get_cell(Grid.ROWS - row - 1, Grid.COLUMNS - 1).center + Vector2(grid.cell_width * 2, 0)
+
+func _swap_players() -> void:
+    active_player.active = false
+    inactive_player.active = true
+    var temp := active_player
+    active_player = inactive_player
+    inactive_player = temp
