@@ -37,6 +37,7 @@ gdscript/warnings/unsafe_call_argument=2
 
 window/size/viewport_width=1330
 window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [rendering]
 
