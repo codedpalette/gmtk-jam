@@ -100,7 +100,6 @@ func _calculate_player_velocity(player: Player, beat_index: int) -> Vector2:
                 nearest_cell = cell
                 break
     if nearest_cell == null:
-        # TODO: Snap to grid
         return vector_right
     
     var distance := nearest_cell.center - player.position

@@ -49,6 +49,7 @@ func _on_input_event(event: InputEvent) -> void:
         clicked.emit(grid_index.x, grid_index.y)
 
 func disable() -> void:
+    hovered = false
     for signal_name: StringName in ["mouse_entered", "mouse_exited", "input_event"]:
         for connection in area.get_signal_connection_list(signal_name):
             var callable: Callable = connection.callable
