@@ -1,9 +1,6 @@
 // Modified from https://godotshaders.com/shader/discrete-ocean/
 shader_type canvas_item;
 
-uniform vec2 size;
-uniform sampler2D noise_texture: repeat_enable;
-
 uniform vec4 bottom_color: source_color;
 uniform vec4 top_color: source_color;
 
