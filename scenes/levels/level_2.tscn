@@ -14,7 +14,7 @@ exit_row = 2
 metadata/_custom_type_script = "uid://p01bdvdwcj2b"
 
 [node name="DeathZone" parent="." instance=ExtResource("2_g2h2n")]
-position = Vector2(860, 386)
+position = Vector2(665, 386)
 
 [node name="CollisionShape2D" parent="DeathZone" index="0"]
 shape = SubResource("RectangleShape2D_g2h2n")

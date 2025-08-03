@@ -31,38 +31,38 @@ exit_row = 5
 metadata/_custom_type_script = "uid://p01bdvdwcj2b"
 
 [node name="DeathZone" parent="." instance=ExtResource("2_w6h2s")]
-position = Vector2(611, 463)
+position = Vector2(415, 463)
 
 [node name="CollisionShape2D" parent="DeathZone" index="0"]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_5vn0v")
 
 [node name="DeathZone5" parent="." instance=ExtResource("2_w6h2s")]
-position = Vector2(1109, 463)
+position = Vector2(913, 463)
 
 [node name="CollisionShape2D" parent="DeathZone5" index="0"]
 shape = SubResource("RectangleShape2D_anwe6")
 
 [node name="MuteZone" parent="." instance=ExtResource("3_ogj6a")]
-position = Vector2(860, 257)
+position = Vector2(664, 257)
 
 [node name="CollisionShape2D" parent="MuteZone" index="0"]
 shape = SubResource("RectangleShape2D_rej77")
 
 [node name="DeathZone2" parent="." instance=ExtResource("2_w6h2s")]
-position = Vector2(632, 376)
+position = Vector2(436, 376)
 
 [node name="CollisionShape2D" parent="DeathZone2" index="0"]
 shape = SubResource("RectangleShape2D_w6h2s")
 
 [node name="DeathZone3" parent="." instance=ExtResource("2_w6h2s")]
-position = Vector2(1089, 376)
+position = Vector2(893, 376)
 
 [node name="CollisionShape2D" parent="DeathZone3" index="0"]
 shape = SubResource("RectangleShape2D_w6h2s")
 
 [node name="DeathZone4" parent="." instance=ExtResource("2_w6h2s")]
-position = Vector2(860, 180)
+position = Vector2(664, 180)
 
 [node name="CollisionShape2D" parent="DeathZone4" index="0"]
 shape = SubResource("RectangleShape2D_ogj6a")

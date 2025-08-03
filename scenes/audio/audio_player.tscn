@@ -1,15 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4ait8w6u40fv"]
+[gd_scene load_steps=5 format=3 uid="uid://b4ait8w6u40fv"]
 
 [ext_resource type="Script" uid="uid://bs2f4hkuv22by" path="res://scenes/audio/audio_player.gd" id="1_ipjhf"]
-[ext_resource type="AudioStream" uid="uid://7xv474sgna4e" path="res://scenes/audio/kick.wav" id="2_mqptc"]
-[ext_resource type="AudioStream" uid="uid://cvceibvfkbpx7" path="res://scenes/audio/lead.wav" id="3_5c81v"]
+[ext_resource type="AudioStream" uid="uid://bsjobj8tskf4q" path="res://scenes/audio/drum_loop.wav" id="2_mqptc"]
+[ext_resource type="AudioStream" uid="uid://ro82afrufcgl" path="res://scenes/audio/lead.wav" id="3_5c81v"]
+[ext_resource type="AudioStream" uid="uid://c0g0xgo43s8se" path="res://scenes/audio/bass_loop.wav" id="4_mqptc"]
 
 [node name="AudioPlayer" type="Node"]
 script = ExtResource("1_ipjhf")
 
-[node name="KickPlayer" type="AudioStreamPlayer" parent="."]
+[node name="DrumLoopPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_mqptc")
+max_polyphony = 2
 
 [node name="LeadPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_5c81v")
+max_polyphony = 2
 bus = &"Lead"
+
+[node name="BassLoopPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mqptc")
+volume_db = -5.0
+max_polyphony = 2

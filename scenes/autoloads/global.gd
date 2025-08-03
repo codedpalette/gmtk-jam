@@ -18,9 +18,12 @@ func advance_level() -> void:
     if current_level == 0:
         main_controller.change_gui_scene("")
     if current_level < levels_paths.size():
+        if current_level == 2:
+            AudioPlayer.drum_loop_active = true
         var level_scene: Level = main_controller.change_world_scene(levels_paths[current_level])
         level_scene.level_completed.connect(advance_level)
     else:
+        AudioPlayer.stop_all_players()
         Beat.stop()
         main_controller.change_world_scene("")
         main_controller.change_gui_scene(finish_screen_path)

@@ -1,6 +1,6 @@
 extends Node
 
-const BPM = 120
+const BPM = 128
 const BEAT_DURATION = 60.0 / BPM
 const EIGHTH_NOTE_DURATION = BEAT_DURATION / 2
 

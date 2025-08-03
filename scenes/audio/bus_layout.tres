@@ -1,4 +1,9 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://dkchfw8ewnnvc"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://dkchfw8ewnnvc"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_gmaeb"]
+resource_name = "Reverb"
+room_size = 0.24
+wet = 0.2
 
 [sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_j3pel"]
 resource_name = "HighPassFilter"
@@ -8,6 +13,9 @@ cutoff_hz = 800.0
 resource_name = "PitchShift"
 
 [resource]
+bus/0/volume_db = -1.0
+bus/0/effect/0/effect = SubResource("AudioEffectReverb_gmaeb")
+bus/0/effect/0/enabled = true
 bus/1/name = &"Lead"
 bus/1/solo = false
 bus/1/mute = false
