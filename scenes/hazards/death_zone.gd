@@ -8,7 +8,9 @@ func _draw() -> void:
     var shape: RectangleShape2D = collision_shape.shape
     draw_rect(Rect2(-shape.size * 0.5, shape.size), debug_color)
     debug_color.a = 1
-    draw_circle(Vector2.ZERO, 25, debug_color, false, 3.0, true)
+    var radius := 25 * sprite.scale.x
+    var thickness := 3.0 * sprite.scale.x
+    draw_circle(Vector2.ZERO, radius, debug_color, false, thickness, true)
 
 func _ready() -> void:
     body_entered.connect(_on_body_entered)

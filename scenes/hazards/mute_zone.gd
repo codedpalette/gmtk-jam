@@ -8,11 +8,12 @@ func _draw() -> void:
     var shape: RectangleShape2D = collision_shape.shape
     draw_rect(Rect2(-shape.size * 0.5, shape.size), debug_color)
     debug_color.a = 1
-    var radius := 25
-    draw_circle(Vector2.ZERO, radius, debug_color, false, 3.0, true)
+    var radius := 25 * sprite.scale.x
+    var thickness := 3.0 * sprite.scale.x
+    draw_circle(Vector2.ZERO, radius, debug_color, false, thickness, true)
     var start_line := Vector2(0, -1).rotated(-PI / 5).normalized() * radius
     var end_line := -start_line
-    draw_line(start_line, end_line, debug_color, 3.0, true)
+    draw_line(start_line, end_line, debug_color, thickness, true)
 
 func _ready() -> void:
     area_entered.connect(_on_area_entered)
