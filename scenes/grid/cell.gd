@@ -38,7 +38,6 @@ func _ready() -> void:
     var shape: RectangleShape2D = collision_shape.shape
     shape.size = rect.size
     area.position = rect.size * 0.5
-    #if area.get_overlapping_areas().filter(func(_area: Area2D) -> bool: return _area is MuteZone).size() == 0:
     area.mouse_entered.connect(func() -> void: hovered = true)
     area.mouse_exited.connect(func() -> void: hovered = false)
     area.input_event.connect(func(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void: _on_input_event(event))

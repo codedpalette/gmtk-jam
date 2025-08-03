@@ -10,6 +10,7 @@ var inactive_player: Player
 var exit_scene: PackedScene = preload("res://scenes/levels/exit_area.tscn")
 var exit_area: ExitArea
 
+# TODO: Move to static fields
 var _viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
 var _viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
 var viewport_size := Vector2i(_viewport_width, _viewport_height)
