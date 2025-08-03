@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctt12johgcdh"]
+
+[ext_resource type="Shader" uid="uid://doqyvt7nositl" path="res://scenes/background/background.gdshader" id="1_iheb5"]
+[ext_resource type="Script" uid="uid://bnckrpv4jq3k2" path="res://scenes/background/background.gd" id="2_pesyb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pesyb"]
+seed = -1936639160
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rsf5d"]
+width = 1024
+height = 1024
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_pesyb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pesyb"]
+shader = ExtResource("1_iheb5")
+shader_parameter/size = Vector2(1720, 720)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_rsf5d")
+shader_parameter/bottom_color = Color(0.22626, 0.0918, 0.54, 1)
+shader_parameter/top_color = Color(0.68, 0.3944, 0.68, 1)
+shader_parameter/wave_amp = 0.247
+shader_parameter/wave_size = 2.213
+shader_parameter/wave_time_mul = 0.207
+shader_parameter/total_phases = 10
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_pesyb"]
+
+[node name="Background" type="TextureRect"]
+material = SubResource("ShaderMaterial_pesyb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_pesyb")
+script = ExtResource("2_pesyb")
