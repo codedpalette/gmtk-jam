@@ -68,7 +68,7 @@ func _init_exit_area() -> void:
 func _on_player_entered(player: Player) -> void:
     if player.visible:
         print("level completed")
-        level_completed.emit()
+        level_completed.emit.call_deferred() # Defer to avoid modifying scene during area2d callback
 
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:

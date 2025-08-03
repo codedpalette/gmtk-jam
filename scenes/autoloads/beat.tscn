@@ -5,4 +5,6 @@
 [node name="Beat" type="Node"]
 script = ExtResource("1_pe2pu")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="BeatTimer" type="Timer" parent="."]
+
+[node name="CountdownTimer" type="Timer" parent="."]
