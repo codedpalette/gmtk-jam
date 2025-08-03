@@ -10,7 +10,6 @@ var inactive_player: Player
 var exit_scene: PackedScene = preload("res://scenes/levels/exit_area.tscn")
 var exit_area: ExitArea
 
-# TODO: Move to static fields
 var _viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
 var _viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
 var viewport_size := Vector2i(_viewport_width, _viewport_height)
@@ -74,12 +73,10 @@ func _on_player_entered(player: Player) -> void:
 func _on_beat_triggered(beat_index: int) -> void:
     if beat_index == 0:
         _swap_players()
+        inactive_player.disappear(Beat.BEAT_DURATION)
     if beat_index == 6:
-        inactive_player.visible = true
-    if beat_index == 1:
-        inactive_player.visible = false
-        inactive_player.velocity = Vector2.ZERO
         inactive_player.position = _get_starting_position(start_row)
+        inactive_player.appear(Beat.BEAT_DURATION)
     if active_player != null && active_player.visible:
         active_player.velocity = _calculate_player_velocity(active_player, beat_index)
         AudioPlayer.play_beat_note(grid, beat_index)

@@ -52,6 +52,7 @@ func advance_level() -> void:
     if current_level == 0:
         change_gui_scene("")
     if current_level < levels_paths.size():
+        # TODO: Why can't I simply typecast to Level? (maybe need to move to another autoload)
         var level_scene := change_world_scene(levels_paths[current_level])
         if level_scene.has_signal("level_completed"):
             var level_completed: Signal = level_scene["level_completed"]

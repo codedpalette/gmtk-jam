@@ -18,5 +18,19 @@ func _physics_process(_delta: float) -> void:
         return
     move_and_slide()
 
+func appear(duration: float) -> void:
+    visible = true
+    modulate.a = 0.0
+    var tween := create_tween()
+    tween.tween_property(self, "modulate:a", 1.0, duration)
+
+func disappear(duration: float) -> void:
+    var tween := create_tween()
+    tween.tween_property(self, "modulate:a", 0.0, duration)
+    tween.tween_callback(func() -> void:
+        velocity = Vector2.ZERO
+        visible = false
+    )
+
 func die() -> void:
     visible = false
