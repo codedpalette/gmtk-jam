@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody2D
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var trail: Trail = $Trail
+var active_color: Color = Color.LIGHT_BLUE
 var active: bool = false:
     set(value):
         active = value
@@ -11,7 +13,11 @@ func _draw() -> void:
     var circle_radius := shape.radius * 1.5
     draw_circle(Vector2.ZERO, circle_radius, Color.BLUE)
     if active:
-        draw_circle(Vector2.ZERO, circle_radius, Color.RED, false, 1.0)
+        draw_circle(Vector2.ZERO, circle_radius, active_color, false, 1.0, true)
+
+func _ready() -> void:
+    trail.modulate = active_color
+    trail.modulate.a = 0.8
 
 func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():
@@ -19,6 +25,7 @@ func _physics_process(_delta: float) -> void:
     move_and_slide()
 
 func appear(duration: float) -> void:
+    trail.clear()
     visible = true
     modulate.a = 0.0
     var tween := create_tween()

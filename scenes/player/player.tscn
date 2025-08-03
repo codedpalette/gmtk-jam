@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://btynom4wkao1d"]
+[gd_scene load_steps=4 format=3 uid="uid://btynom4wkao1d"]
 
 [ext_resource type="Script" uid="uid://cgvw3ek5uuorb" path="res://scenes/player/player.gd" id="1_8afob"]
+[ext_resource type="PackedScene" uid="uid://0oaaol47vy2r" path="res://scenes/player/trail.tscn" id="2_dovo2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8afob"]
 radius = 8.0
@@ -12,3 +13,5 @@ script = ExtResource("1_8afob")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8afob")
+
+[node name="Trail" parent="." instance=ExtResource("2_dovo2")]
