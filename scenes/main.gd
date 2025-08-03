@@ -10,6 +10,7 @@ var current_level := -1
 var levels_paths: Array[String] = [
     "res://scenes/levels/level_1.tscn",
     "res://scenes/levels/level_2.tscn",
+    "res://scenes/levels/level_3.tscn",
 ]
 var finish_screen_path := "res://scenes/gui/finish_screen.tscn"
 

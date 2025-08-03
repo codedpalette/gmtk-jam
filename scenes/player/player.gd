@@ -8,7 +8,7 @@ var active: bool = false:
 
 func _draw() -> void:
     var shape: CircleShape2D = collision_shape.shape
-    var circle_radius := shape.radius
+    var circle_radius := shape.radius * 1.5
     draw_circle(Vector2.ZERO, circle_radius, Color.BLUE)
     if active:
         draw_circle(Vector2.ZERO, circle_radius, Color.RED, false, 1.0)
