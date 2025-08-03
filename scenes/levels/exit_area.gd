@@ -6,6 +6,7 @@ class_name ExitArea extends Area2D
 
 signal player_entered(player: Player)
 
+var color := Color.GREEN
 var size: Vector2:
     set(value):
         size = value
@@ -13,7 +14,10 @@ var size: Vector2:
 
 func _draw() -> void:
     var debug_rect := Rect2(size * -0.5, size)
-    draw_rect(debug_rect, Color.GREEN, false, 1.0, true)
+    draw_rect(debug_rect, color, false, 1.0, true)
+    var fill_color := color
+    fill_color.a = 0.2
+    draw_rect(debug_rect, fill_color)
 
 func _ready() -> void:
     connect("body_entered", _on_body_entered)
