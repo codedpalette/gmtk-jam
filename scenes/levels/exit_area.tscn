@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfabj2vd75jc1"]
+[gd_scene load_steps=4 format=3 uid="uid://cfabj2vd75jc1"]
 
 [ext_resource type="Script" uid="uid://do8fsb5h8j60m" path="res://scenes/levels/exit_area.gd" id="1_iq7ta"]
+[ext_resource type="Texture2D" uid="uid://bs0o84fayt3jo" path="res://scenes/levels/next.png" id="2_c040a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukiqr"]
-size = Vector2(107.5, 51.4286)
+size = Vector2(118.25, 56.5714)
 
 [node name="ExitArea" type="Area2D"]
 script = ExtResource("1_iq7ta")
@@ -12,3 +13,6 @@ script = ExtResource("1_iq7ta")
 visible = false
 shape = SubResource("RectangleShape2D_ukiqr")
 debug_color = Color(0.336267, 0.612159, 0.323909, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_c040a")

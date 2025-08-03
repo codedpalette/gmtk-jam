@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://wundd1piastm" path="res://scenes/grid/cell.gd" id="1_xhk21"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhk21"]
-size = Vector2(0, 0)
+size = Vector2(107.5, 51.4286)
 
 [node name="Cell" type="Node2D"]
 script = ExtResource("1_xhk21")
-line_color = Color(0.988235, 0.988235, 0.988235, 1)
+line_color = Color(0.99, 0.99, 0.99, 0.227451)
 hover_color = Color(0.453097, 0.36268, 0.0991753, 0.972549)
 clicked_color = Color(0.734719, 0.589853, 0.187447, 0.972549)
 

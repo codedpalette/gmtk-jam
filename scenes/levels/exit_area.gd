@@ -3,6 +3,7 @@ class_name ExitArea extends Area2D
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var rect_shape: RectangleShape2D = collision_shape.shape
+@onready var sprite: Sprite2D = $Sprite2D
 
 signal player_entered(player: Player)
 
@@ -21,6 +22,7 @@ func _draw() -> void:
 
 func _ready() -> void:
     connect("body_entered", _on_body_entered)
+    sprite.modulate = color
 
 func _on_body_entered(body: Node2D) -> void:
     if body is Player:

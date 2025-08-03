@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cekkgwrvsirng"]
+[gd_scene load_steps=4 format=3 uid="uid://cekkgwrvsirng"]
 
 [ext_resource type="Script" uid="uid://dp4tdwsm0j5kd" path="res://scenes/hazards/mute_zone.gd" id="1_o1egy"]
+[ext_resource type="Texture2D" uid="uid://cb1mjhnpnjmf6" path="res://scenes/hazards/audioOn.png" id="2_s751g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g72ul"]
 resource_local_to_scene = true
@@ -12,4 +13,7 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g72ul")
-debug_color = Color(0.7, 0.7, 0.7, 0.819608)
+debug_color = Color(0.701961, 0.701961, 0.701961, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s751g")
