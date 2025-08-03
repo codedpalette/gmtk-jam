@@ -22,8 +22,8 @@ buses/default_bus_layout="uid://dkchfw8ewnnvc"
 [autoload]
 
 Beat="*res://scenes/autoloads/beat.tscn"
-Global="*res://scenes/autoloads/global.gd"
 AudioPlayer="*res://scenes/audio/audio_player.tscn"
+Global="*res://scenes/autoloads/global.gd"
 
 [debug]
 

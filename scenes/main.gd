@@ -6,16 +6,6 @@ class_name Main extends Node
 var current_world_scene: Node2D
 var current_gui_scene: Control
 
-var current_level := -1
-var levels_paths: Array[String] = [
-    "res://scenes/levels/level_1.tscn",
-    "res://scenes/levels/level_2.tscn",
-    "res://scenes/levels/level_3.tscn",
-    "res://scenes/levels/level_4.tscn",
-    "res://scenes/levels/level_5.tscn",
-]
-var finish_screen_path := "res://scenes/gui/finish_screen.tscn"
-
 func _ready() -> void:
     Global.main_controller = self
     current_gui_scene = $GUI/StartScreen
@@ -46,18 +36,3 @@ func change_world_scene(new_scene: String, delete := true, keep_running := false
         world.add_child(new_world_scene)
         current_world_scene = new_world_scene
     return current_world_scene
-
-func advance_level() -> void:
-    current_level += 1
-    if current_level == 0:
-        change_gui_scene("")
-    if current_level < levels_paths.size():
-        # TODO: Why can't I simply typecast to Level? (maybe need to move to another autoload)
-        var level_scene := change_world_scene(levels_paths[current_level])
-        if level_scene.has_signal("level_completed"):
-            var level_completed: Signal = level_scene["level_completed"]
-            level_completed.connect(advance_level)
-    else:
-        Beat.stop()
-        change_world_scene("")
-        change_gui_scene(finish_screen_path)

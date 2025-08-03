@@ -30,7 +30,7 @@ signal level_completed()
 func _draw() -> void:
     if Engine.is_editor_hint():
         var start_position := grid.to_global(_get_starting_position(start_row))
-        draw_circle(start_position, 10, Color.RED)
+        draw_circle(start_position, 10, Color.BLUE)
 
 func _ready() -> void:
     _init_player_pool()
